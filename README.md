@@ -1,1 +1,2 @@
-# belajar_OOP
+# Repo OOP
+Untuk pengumpulan tugas OOP
