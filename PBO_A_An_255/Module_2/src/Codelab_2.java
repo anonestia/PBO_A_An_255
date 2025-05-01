@@ -54,26 +54,21 @@ class BankAccount {
     }
 }
 
-// Main class (Must match the filename "Codelab_2")
+// Main class
 public class Codelab_2 {
     public static void main(String[] args) {
-        // Membuat dua objek BankAccount
         BankAccount account1 = new BankAccount("202410370110255", "Anindya Estiningtyas", 200000.0);
-        BankAccount account2 = new BankAccount("202410370110039", "Firdaus Firmansyah Emha", 500000.0);
+        BankAccount account2 = new BankAccount("202410370110039", "Firdaus Firmansyah Emha", 700000.0);
 
-        // Menampilkan informasi awal akun
         account1.displayInfo();
         account2.displayInfo();
 
-        // Melakukan transaksi pada account1
         account1.depositMoney(100000.0);  // Menyetor uang ke account1
         account1.withdrawMoney(200000.0); // Menarik uang dari account1
 
-        // Melakukan transaksi pada account2
         account2.depositMoney(150000.0);  // Menyetor uang ke account2
         account2.withdrawMoney(400000.0); // Mencoba menarik lebih dari saldo
 
-        // Menampilkan informasi akhir akun
         account1.displayInfo();
         account2.displayInfo();
     }

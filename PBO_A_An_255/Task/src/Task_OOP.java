@@ -1,72 +1,144 @@
 import java.util.Scanner;
 
-class Admin {
-    String username = "Admin255", password = "Password255", loginInputUN, loginInputPW;
+// Superclass representing a generic user
+class User {
+    // Encapsulated attributes
+    private String username;
+    private String password;
 
-    void login() {
-        Scanner objInput = new Scanner(System.in);
+    // Constructor to initialize username and student ID
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
-        System.out.print("Enter admin username: ");
-        loginInputUN = objInput.nextLine();
+    // Getter for username
+    public String getName() {
+        return username;
+    }
 
-        System.out.print("Enter admin password: ");
-        loginInputPW = objInput.nextLine();
-        if ((!loginInputUN.equals(username)) || (!loginInputPW.equals(password))) {
-            System.out.print("Login failed. Wrong username or password.");
-        } else {
-            System.out.print("Login successful!");
-        }
+    // Getter for student ID
+    public String getPassword() {
+        return password;
+    }
+
+    // Method to handle login, to be overridden by subclasses
+    public boolean login() {
+        return false;
+    }
+
+    // Method to display user information, to be overridden by subclasses
+    public void displayInfo() {
     }
 }
 
-class Student {
-    String username = "Anindya Estiningtyas", password = "20241037011255", loginInputUN, loginInputPW;
+// Admin subclass extends User and uses unique admin login
+class Admin extends User {
 
-    void login() {
-        Scanner objInput = new Scanner(System.in);
-
-        System.out.print("Enter student name: ");
-        loginInputUN = objInput.nextLine();
-
-        System.out.print("Enter student NIM: ");
-        loginInputPW = objInput.nextLine();
-        if ((!loginInputUN.equals(username)) || (!loginInputPW.equals(password))) {
-            System.out.print("Login failed. Wrong name or NIM.");
-        } else {
-            System.out.print("Login successful!");
-        }
-
-        displayInfo();
+    // Constructor using super() to set username and student ID
+    public Admin(String username, String password) {
+        super(username, password);
     }
 
-    void displayInfo() {
-        System.out.println("\n\nFull Name: Anindya Estiningtyas");
-        System.out.println("NIM: 20241037011255");
+    // Overrides login() to validate admin username and password
+    @Override
+    public boolean login() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter admin username: ");
+        String inputUsername = scanner.nextLine();
+
+        System.out.print("Enter admin password: ");
+        String inputPassword = scanner.nextLine();
+
+        // Check if input matches the hardcoded admin credentials
+        if (inputUsername.equals(getName()) && inputPassword.equals(getPassword())) {
+            return true;
+        } else {
+            System.out.println("Login failed. Wrong username or password.");
+            return false;
+        }
+    }
+
+    // Overrides displayInfo() to show admin login success and info
+    @Override
+    public void displayInfo() {
+        System.out.println("Admin login successful.");
+    }
+}
+
+// Student subclass extends User and uses student name + student ID for login
+class Student extends User {
+
+    // Constructor that initializes username and student ID via super()
+    public Student(String username, String password) {
+        super(username, password);
+    }
+
+    // Overrides login() to match user input with student username and ID
+    @Override
+    public boolean login() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter student username: ");
+        String inputName = scanner.nextLine();
+
+        System.out.print("Enter student ID: ");
+        String inputID = scanner.nextLine();
+
+        // Validate input with object's stored username and ID
+        if (inputName.equals(getName()) && inputID.equals(getPassword())) {
+            return true;
+        } else {
+            System.out.println("Login failed. Wrong username or student ID.");
+            return false;
+        }
+    }
+
+    // Overrides displayInfo() to show student profile information
+    @Override
+    public void displayInfo() {
+        System.out.println("Student login successful.");
+        System.out.println("username: " + getName());
+        System.out.println("ID: " + getPassword());
         System.out.println("Class: 2A Informatics");
         System.out.println("An is a girl student that likes to wear black and white outfit. She is interested in AI and game developments.");
     }
 }
 
+// Main class for the login system
 public class Task_OOP {
     public static void main(String[] args) {
-        String loginAs;
+        Scanner scanner = new Scanner(System.in);
+        User user;
 
-        Scanner objInput = new Scanner(System.in);
-        System.out.println("Select Login Type:\n1.Admin\n2.Student");
+        // Show user login options
+        System.out.println("Select Login Type:");
+        System.out.println("1. Admin");
+        System.out.println("2. Student");
 
-        do {
+        // Loop until valid choice is made
+        while (true) {
             System.out.print("Enter your choice: ");
-            loginAs = objInput.nextLine();
+            String choice = scanner.nextLine();
 
-            if (loginAs.equals("1")) {
-                Admin admin = new Admin();
-                admin.login();
-            } else if (loginAs.equals("2")) {
-                Student student = new Student();
-                student.login();
-            } else {
-                System.out.print("Invalid input.\n\n");
+            // Create Admin object with default credentials
+            if (choice.equals("1")) {
+                user = new Admin("Admin255", "Password255"); // Last NIM
+                break;
             }
-        } while (!loginAs.equals("1") && !loginAs.equals("2"));
+            // Create Student object with specific username and ID
+            else if (choice.equals("2")) {
+                user = new Student("Anindya Estiningtyas", "20241037011255"); // Student fullname and NIM
+                break;
+            } else {
+                System.out.println("Invalid input. Please select 1 or 2.");
+            }
+        }
+
+        // Call login method — if success, show info
+        if (user.login()) {
+            user.displayInfo();
+        }
     }
 }

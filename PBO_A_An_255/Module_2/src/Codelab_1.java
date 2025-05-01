@@ -14,10 +14,10 @@ class Animal {
     }
 }
 
-// Main class (must match the filename "Codelab_1")
+// Main class
 public class Codelab_1 {
     public static void main(String[] args) {
-        // Creating two Animal objects with specified attributes
+        // Creating two Animal objects
         Animal animal1 = new Animal();
         animal1.name = "Cat";
         animal1.type = "Mammal";
