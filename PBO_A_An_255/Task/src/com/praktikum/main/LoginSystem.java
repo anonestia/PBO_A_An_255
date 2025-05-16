@@ -22,7 +22,7 @@ public class LoginSystem {
                 user = new Admin("Admin255", "Password255");
                 break;
             } else if (choice.equals("2")) {
-                user = new Student("Anindya Estiningtyas", "20241037011255");
+                user = new Student("Anindya Estiningtyas", "202410370110255");
                 break;
             } else {
                 System.out.println("Invalid input. Please select 1 or 2.");
