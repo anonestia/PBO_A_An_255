@@ -1,71 +1,47 @@
 package com.praktikum.users;
 
-import com.praktikum.actions.StudentActions;
+import com.praktikum.models.Item;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Student extends User implements StudentActions {
-    public Student(String username, String password) {
-        super(username, password);
+public class Student extends User {
+    private String nim;
+    private static ArrayList<Item> reportedItems = new ArrayList<>();
+
+    public Student(String name, String nim) {
+        super(name, nim);
+        this.nim = nim;
     }
 
-    @Override
-    public boolean login() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter student username: ");
-        String inputName = scanner.nextLine();
-        System.out.print("Enter student ID: ");
-        String inputID = scanner.nextLine();
-        return inputName.equals(getName()) && inputID.equals(getPassword());
-    }
+    public String getNim() { return nim; }
 
-    @Override
-    public void displayInfo() {
-        System.out.println("Student login successful.");
-        System.out.println("Username: " + getName());
-        System.out.println("ID: " + getPassword());
-        System.out.println("Class: 2A Informatics");
-    }
-
-    @Override
-    public void reportItem() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Item Name: ");
-        String name = scanner.nextLine();
+    public void reportItem(Scanner sc) {
+        System.out.print("Item name: ");
+        String name = sc.nextLine();
         System.out.print("Description: ");
-        String desc = scanner.nextLine();
-        System.out.print("Last Seen Location: ");
-        String loc = scanner.nextLine();
-        System.out.println("Item reported successfully.");
+        String desc = sc.nextLine();
+        System.out.print("Location: ");
+        String loc  = sc.nextLine();
+
+        Item it = new Item(name, desc, loc);
+        reportedItems.add(it);
+        System.out.println("Report submitted.");
     }
 
-    @Override
     public void viewReportedItems() {
-        System.out.println(">> View Report Feature Not Available <<");
-    }
-
-    @Override
-    public void displayAppMenu() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("\nStudent Menu:");
-            System.out.println("1. Report Found/Lost Items");
-            System.out.println("2. View Report List");
-            System.out.println("0. Logout");
-            System.out.print("Select option: ");
-            String input = scanner.nextLine();
-            switch (input) {
-                case "1":
-                    reportItem();
-                    break;
-                case "2":
-                    viewReportedItems();
-                    break;
-                case "0":
-                    System.out.println("Logging out...");
-                    return;
-                default:
-                    System.out.println("Invalid input.");
+        if (reportedItems.isEmpty()) {
+            System.out.println("No item reports yet.");
+            return;
+        }
+        for (Item it : reportedItems) {
+            if ("Reported".equals(it.getStatus())) {
+                System.out.printf("%s | %s | %s%n", // %n is platform-independent newline \n
+                        it.getItemName(), it.getDescription(), it.getLocation());
             }
         }
+    }
+
+    public static ArrayList<Item> getReportedItems() {
+        return reportedItems;
     }
 }

@@ -7,6 +7,11 @@ public class Item {
         this.stock = stock;
     }
 
+    public Item(String name) {
+        this.name = name;
+        this.stock = 0;
+    }
+
     public String getName() {
         return name;
     }

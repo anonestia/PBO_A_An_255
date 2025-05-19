@@ -9,7 +9,7 @@ public class StockManagement {
 
         // Initial sample data
         itemList.add(new Item("Pencil", 20));
-        itemList.add(new Item("Notebook", 15));
+        itemList.add(new Item("Notebook"));
         itemList.add(new Item("Eraser", 10));
 
         while (true) {
