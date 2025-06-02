@@ -34,8 +34,8 @@ public class Admin extends User {
                         for (int i = 0; i < list.size(); i++) {
                             Item it = list.get(i);
                             System.out.printf("%d) %s | %s | %s | %s%n",
-                                    i, it.getItemName(), it.getDescription(), it.getLocation(), it.getStatus());
-                        }
+                                    i + 1, it.getItemName(), it.getDescription(), it.getLocation(), it.getStatus());
+                        } // the i + 1 is to make the list starts from 1 instead of 0
                     }
                     break;
                 case 2:
@@ -53,7 +53,7 @@ public class Admin extends User {
                     try {
                         int idx = sc.nextInt();
                         sc.nextLine();
-                        Item target = list.get(idx);
+                        Item target = list.get(idx - 1); // to make sure it is the right index, not the shown list, as the list was i + 1
                         if (!"Reported".equals(target.getStatus())) {
                             System.out.println("Already claimed.");
                         } else {

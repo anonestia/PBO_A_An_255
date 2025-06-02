@@ -11,8 +11,8 @@ public class LoginSystem {
         // default users
         userList.add(new Admin("admin255", "password255"));
         userList.add(new Admin("admin0", "0000"));
-        userList.add(new Student("Anindya Estiningtyas", "202510370110255"));
-        userList.add(new Student("dummy",   "dummy"));
+        userList.add(new Student("Anindya Estiningtyas", "202410370110255"));
+        userList.add(new Student("dummy",   "dummy0"));
     }
 
     public static User login(Scanner sc) {
